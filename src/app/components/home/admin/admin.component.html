@@ -1,2 +1,13 @@
-<p>Admin Page!</p>
-<a [routerLink]="['/login']">Logout</a>
+
+<div style="display:grid; padding: 0px; margin: auto; width:33%; font-family: Roboto Condensed;">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Admin card</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>Username: {{this.user.name}}</mat-card-content>
+        <mat-card-content>Role: {{this.user.authorities[0].authority}}</mat-card-content>
+    </mat-card>
+    <button mat-flat-button color="primary" [routerLink]="['/login']">Logout</button>
+    
+</div>

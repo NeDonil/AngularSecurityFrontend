@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -31,7 +32,8 @@ import { FormsModule } from '@angular/forms';
     MatFormFieldModule, 
     MatInputModule,
     HttpClientModule,
-    MatButtonModule
+    MatButtonModule, 
+    MatCardModule
   ],
   providers: [SessionStorageService, provideAnimations()],
   bootstrap: [AppComponent],

@@ -1,10 +1,10 @@
-import { CanActivateChild, CanActivate, CanLoad, Router, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, UrlSegment, Route } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
-import { CredentialResponse } from './model/auth/credentialResponse';
-import { AuthService } from './auth.service';
 import { ROLE, ROLE_MAPPER } from './role';
 import { Injectable } from '@angular/core';
+import { CanActivate, CanActivateChild, CanLoad, Route, UrlSegment, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map, take } from 'rxjs/operators';
+import { AuthService } from './auth.service';
+import { CredentialResponse } from './model/auth/credentialResponse';
 
 @Injectable({
     providedIn: 'root'
@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad{
     constructor(private authService : AuthService,
         private router: Router) {}
 
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+    canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
         return this.authService.isLoggedIn.pipe(
             take(1),
             map((isLoggedIn: boolean) => {
@@ -26,10 +26,8 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad{
                 if(loggedUser != null && loggedUser.authenticated){
                     for(let role in ROLE) {
                         let checkAuthRole!: boolean;
-                        debugger
                         loggedUser.authorities.forEach(el => checkAuthRole = el.authority == role);
                         if(checkAuthRole){
-                            debugger
                             let access = AuthService.checkAuthUser(loggedUser, ROLE_MAPPER[role]);
 
                             if(!access && checkAuthRole){
@@ -50,7 +48,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad{
         this.router.navigate(['login']);
     }
 
-    canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+    canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree  {
         return true;
     }
 

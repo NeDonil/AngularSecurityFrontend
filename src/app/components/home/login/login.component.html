@@ -1,0 +1,17 @@
+<div>
+    <div>
+        <h1>Enter</h1>
+        <div>
+            <input matInput type="text" placeholder="Account" [(ngModel)]="credential.username"/>
+        </div>
+        <div>
+            <input matInput type="password" placeholder="Password" [(ngModel)]="credential.password"/>
+        </div>
+        <div *ngIf="errorAuth" style="margin-bottom: 25px; color: red">
+            Wrong username or password
+        </div>
+        <button (click)="login()">
+            Log In
+        </button>
+    </div>
+</div>
